@@ -1,4 +1,3 @@
-import { resourceUsage } from "process";
 import {createContext, useContext, useState, useEffect} from "react";
 
 type Theme = "light" | "dark" | "system";
@@ -10,7 +9,7 @@ type ThemeProviderProps = {
 
 type ThemeProviderState = {
     theme:Theme
-    setTheme: ()=> null
+    setTheme: (theme:Theme)=> void 
 }
 
 const initialState: ThemeProviderState = {
