@@ -1,17 +1,3 @@
-// export interface Coordinates {
-//     lat: number;
-//     lon: number;
-// }
-
-// export interface WeatherCondition {
-//     id: number;
-//     main: string;
-//     description: string;
-//     icon: string;
-// }
-
-
-
 export interface Coordinates{
     lat:number;
     lon:number;
@@ -80,5 +66,5 @@ export interface GeocodingResponse {
     lat: number;
     lon: number;
     country: string;
-    state ?: string;
+    state?: string;
 }
