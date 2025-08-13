@@ -10,7 +10,6 @@ export default function WatherSkeleton() {
                     <Skeleton className="h-[300px] w-full rounded-lg" />
                 </div>
             </div>
-
         </div>
     )
 }
