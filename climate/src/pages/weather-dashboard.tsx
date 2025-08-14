@@ -2,48 +2,57 @@ import WeatherSkeleton from "@/components/loading-skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button"
 import { useGeolocation } from "@/hooks/use-geolocation"
+import { useForcastQuery, useReversedGeocodeQuery, useWeatherQuery} from "@/hooks/use-weather";
 import { AlertTriangle, MapPin, RefreshCw } from "lucide-react"
 
 export const WeatherDashboard = () => {
-  const { coordinates, error: locationError, getLocation, isLoading: locationLoading} = useGeolocation();
+  const { coordinates, error: locationError, getLocation, isLoading: locationLoading } = useGeolocation();
+
+  const weatherQuery = useWeatherQuery(coordinates);
+
+  const forecastQuery = useForcastQuery(coordinates);
+  const locationQuery = useReversedGeocodeQuery(coordinates);
+
+  console.log(locationQuery);
+  // console.log(weatherQuery)
+  // console.log(forecastQuery)
 
   const handleResfresh = () => {
     getLocation();
-    if(coordinates){
+    if (coordinates) {
       // Reload the weather data 
-      
+
 
     }
   }
 
-  console.log( coordinates);
 
-  if(locationLoading) {
-    return <WeatherSkeleton/>
+  if (locationLoading) {
+    return <WeatherSkeleton />
   }
 
-  if(locationError) {
+  if (locationError) {
     return (
       <Alert variant={"destructive"}>
-      <AlertTriangle  className="h-4 w-4" />
-      <AlertTitle>Location Error</AlertTitle>
-      <AlertDescription className="flex flex-col gap-4"> 
-        <p>{locationError}</p>
-        <Button 
-          onClick={getLocation} variant={"outline"} 
-          className="w-fit"
-        >
-          <MapPin className="mr-2 h-4 w-4" />
-          Enable Location
+        <AlertTriangle className="h-4 w-4" />
+        <AlertTitle>Location Error</AlertTitle>
+        <AlertDescription className="flex flex-col gap-4">
+          <p>{locationError}</p>
+          <Button
+            onClick={getLocation} variant={"outline"}
+            className="w-fit"
+          >
+            <MapPin className="mr-2 h-4 w-4" />
+            Enable Location
 
-        </Button>
-      
-      </AlertDescription>
-    </Alert>
+          </Button>
+
+        </AlertDescription>
+      </Alert>
     );
   }
 
-  if(!coordinates) {
+  if (!coordinates) {
     return (
       <Alert variant={"destructive"}>
         <AlertTitle className="flex items-center gap-4">Location Required</AlertTitle>
@@ -73,7 +82,7 @@ export const WeatherDashboard = () => {
           size={"icon"}
         >
 
-          <RefreshCw className="h-4 w-4"/>
+          <RefreshCw className="h-4 w-4" />
         </Button>
 
         {/* {Current and hourly forcast} */}

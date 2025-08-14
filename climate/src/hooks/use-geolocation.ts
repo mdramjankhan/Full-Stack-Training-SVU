@@ -23,13 +23,13 @@ export function useGeolocation() {
         isLoading: true
     });
 
-// step 4: Function to get the user's location
+    // step 4: Function to get the user's location
     const getLocation = () => {
         // reset error and loading state before fetching
         setLocationData((prev) => ({ ...prev, isLoading: true, error: null }));
-         
+
         // step 5: Check if the browser supports geolocation
-        if(!navigator.geolocation) {
+        if (!navigator.geolocation) {
             setLocationData({
                 coordinates: null,
                 error: "Geolocation is not supported by this browser.",
@@ -43,12 +43,12 @@ export function useGeolocation() {
             // Success callback
             (position) => {
                 setLocationData({
-                    isLoading: false,
-                    error: null,
                     coordinates: {
                         lat: position.coords.latitude,
                         lon: position.coords.longitude,
                     },
+                    isLoading: false,
+                    error: null,
                 });
             },
             // error callback
@@ -67,14 +67,14 @@ export function useGeolocation() {
                         break;
                     default:
                         errorMessage = "An unknown error occurred.";
-                        // break;
+                    // break;
 
                 }
 
                 // step 7: Options fro geolocation request
                 setLocationData({
-                    isLoading: false, 
-                    error: errorMessage, 
+                    isLoading: false,
+                    error: errorMessage,
                     coordinates: null,
                 });
 
@@ -92,7 +92,7 @@ export function useGeolocation() {
     useEffect(() => {
         getLocation();
     }, []);
-    
+
     // step 9: return the state + method for manual refresh
     return {
         ...locationData, // Coordinates, errors, isLoading
