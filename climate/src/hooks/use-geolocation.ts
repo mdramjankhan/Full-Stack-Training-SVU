@@ -88,7 +88,7 @@ export function useGeolocation() {
         );
     };
 
-    // step 8: automatically fetch the location on first render
+    // step 8: automatically fetch the location on first render              
     useEffect(() => {
         getLocation();
     }, []);
@@ -96,6 +96,6 @@ export function useGeolocation() {
     // step 9: return the state + method for manual refresh
     return {
         ...locationData, // Coordinates, errors, isLoading
-        getLocation, // Allows re-fecthing location on demand
+        getLocation, // Allows re-fecthing location on demand of user       
     };
 }
