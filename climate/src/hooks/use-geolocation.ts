@@ -96,6 +96,6 @@ export function useGeolocation() {
     // step 9: return the state + method for manual refresh
     return {
         ...locationData, // Coordinates, errors, isLoading
-        getLocation, // Allows re-fecthing location on demand of user       
+        getLocation, // Allows re-fecthing location on demand
     };
 }
