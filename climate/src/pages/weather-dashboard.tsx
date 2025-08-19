@@ -94,6 +94,9 @@ export const WeatherDashboard = () => {
     );
   }
 
+  if(!weatherQuery.data || !forecastQuery.data) {
+    return <WeatherSkeleton />
+  }
 
   return (
     <div className="space-y-4 ">
@@ -113,10 +116,10 @@ export const WeatherDashboard = () => {
 
       {/* {Current and hourly forcast} */}
       <div className="grid gap-6">
-        <div>
+        <div className="flex flex-col lg:flex-row gap-4">
           {/* {Current Weather} */}
           <CurrentWeather
-            data={weatherQuery.data!}
+            data={weatherQuery.data}
             locationName={locationName} />
           {/* {Hourly Temparature} */}
         </div>
