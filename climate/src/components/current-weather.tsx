@@ -81,11 +81,11 @@ export const CurrentWeather = ({ data, locationName }: CurrentWeatherProps) => {
                     <div className="flex flex-col items-center justify-center">
                         <div className="relative flex aspect-square w-full max-w-[200px] rounded-lg overflow-hidden items-center justify-center">
                             <img src={` https://openweathermap.org/img/wn/${CurrentWeather.icon}@4x.png `} alt={CurrentWeather.description}
-                             className="absolute h-full w-full object-contain"
+                                className="absolute h-full w-full object-contain"
                             />
                             <div className="absolute bottom-0 text-center">
-                                <p className="text-sm font-medium capitalize"></p>
-                                {CurrentWeather.description}
+                                <p className="text-sm font-medium capitalize">                                {CurrentWeather.description}
+                                </p>
 
                             </div>
 

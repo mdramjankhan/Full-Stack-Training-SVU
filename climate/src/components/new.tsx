@@ -13,8 +13,8 @@ const HourlyTemperature = ({ data }: HourlyTemperatureProps) => {
         temp: Math.round(item.main.temp),
         feels_like: Math.round(item.main.feels_like),
     }));
-
     return (
+
         <Card className='flex-1'>
             <CardHeader>
                 <CardTitle>Today's Temperature</CardTitle>
@@ -35,7 +35,7 @@ const HourlyTemperature = ({ data }: HourlyTemperatureProps) => {
                                 fontSize={12}
                                 tickLine={false}
                                 axisLine={false}
-                                tickFormatter={(value) => `${value}°`} // Corrected this line
+                                tickFormatter={(value) => ${value}°}
                             />
                             <Tooltip
                                 content={({ active, payload }) => {
@@ -86,7 +86,7 @@ const HourlyTemperature = ({ data }: HourlyTemperatureProps) => {
                 </div>
             </CardContent>
         </Card>
-    );
+    )
 }
 
-export default HourlyTemperature;
+export default HourlyTemperature
