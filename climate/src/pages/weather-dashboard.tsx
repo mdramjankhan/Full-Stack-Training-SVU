@@ -4,6 +4,7 @@ import WeatherSkeleton from "@/components/loading-skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button"
 import WeatherDetails from "@/components/weather-details";
+import { WeatherForcast } from "@/components/weather-forcast";
 import { useGeolocation } from "@/hooks/use-geolocation"
 import { useForcastQuery, useReversedGeocodeQuery, useWeatherQuery } from "@/hooks/use-weather";
 import { AlertTriangle, MapPin, RefreshCw } from "lucide-react"
@@ -129,11 +130,12 @@ export const WeatherDashboard = () => {
       </div>
 
 
-      <div>
-        <div>
+      <div className="grid gap-6">
+        <div className="flex flex-col justify-between lg:flex-row gap-4">
           {/* {Details } */}
           <WeatherDetails data={weatherQuery.data} />
           {/* {Forcast} */}
+          <WeatherForcast data={forecastQuery.data} />
         </div>
       </div>
     </div>
