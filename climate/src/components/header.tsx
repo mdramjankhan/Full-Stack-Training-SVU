@@ -1,6 +1,7 @@
 import { useTheme } from "@/context/theme-provide";
 import { Moon, Sun } from "lucide-react";
 import { Link } from "react-router-dom";
+import { CitySearch } from "./city-search";
 
 export default function Header() {
     const { theme, setTheme } = useTheme();
@@ -18,6 +19,11 @@ export default function Header() {
                         className="h-14 w-auto cursor-pointer"
                     />
                 </Link>
+                {/* // search button */}
+                <div className="flex gap-4">
+                    <CitySearch/>
+
+                
 
                 {/* theme changing toggle button  */}
                 <button
@@ -32,6 +38,7 @@ export default function Header() {
                         <Moon className="h-5 w-5 text-blue-500" />
                     )}
                 </button>
+                </div>
             </div>
         </header>
     );

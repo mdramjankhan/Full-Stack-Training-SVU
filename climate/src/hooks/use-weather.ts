@@ -12,7 +12,9 @@ export const WEATHER_KEYS = {
     forecast: (coords: Coordinates) => ["forecast", coords] as const,
     // Reverse geocode key
     location: (coords: Coordinates) => ["location", coords] as const,
-};
+
+    search: (query:string)=>["location-search",query] as const, // newly added for searching params and functions
+} as const;
 
 
 // Hook to fetch the current weather data based on given coordinates 
@@ -43,5 +45,23 @@ export function useReversedGeocodeQuery(coordinates: Coordinates | null) {
         queryKey: WEATHER_KEYS.location(coordinates ?? { lat: 0, lon: 0 }),
         queryFn: () => coordinates ? weatherAPI.reverseGeocode(coordinates) : null,
         enabled: !!coordinates,
+    });
+}
+
+// Hook to perform reverse geocoding (convert lat/ lon)
+// export function useLocationSearchQuery(query: string | null) { // made by the ai
+//     return useQuery({
+//         queryKey: WEATHER_KEYS.search(query ?? ""),
+//         queryFn: () => query ? weatherAPI.searchLocations(query) : null,
+//         enabled: !!query,
+//     });
+// }
+
+// Hook to search location based on a query string (e.g. city name)
+export function useLocationSearch(query: string ) { // made by the sir
+    return useQuery({
+        queryKey: WEATHER_KEYS.search(query),
+        queryFn: () => weatherAPI.searchLocations(query),
+        enabled: query.length>=3,
     });
 }
