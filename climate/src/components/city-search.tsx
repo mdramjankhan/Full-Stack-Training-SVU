@@ -9,7 +9,7 @@ export const CitySearch = () => {
     const [open, setOpen] = useState(false)
     const [query, setQuery] = useState("")
     // const navigate = useNavigate();
-    const {data:locations, isLoading} = useLocationSearch(query);
+    const { data: locations, isLoading } = useLocationSearch(query);
 
 
     console.log(locations);
@@ -32,54 +32,37 @@ export const CitySearch = () => {
                         onValueChange={setQuery}
                     />
                     <CommandList>
-                        {
-                            query.length>2 && !isLoading && (
-                                <CommandEmpty>No City Found.</CommandEmpty>
-                            )
-                        }
-                        {/* {Search Results} */}
-                        <CommandSeparator>
-                            {
-                                locations && locations.length > 2 && (
-                                    <CommandGroup heading="Suggestions">
-                                        {
-                                            isLoading && (
-                                                <div className="flex flex-center justify-center">
-                                                    <Loader2 className="h-4 w-4 animate-spin "/>
-                                                </div>
-                                            )
-                                        }
-                                        {
-                                            locations.map((location)=> (
-                                                <CommandItem
-                                                    key={`${location.lat}-${location.lon}`}
-                                                    value={`${location.lat}|${location.lon}|${location.name}|${location.country}`}
-                                                    onClick={() => {
-                                                        setOpen(false);
-                                                        // navigate(`/city/${location.lat}|${location.lon}|${location.name}|${location.country}`)
-                                                    }}
-                                                >
-                                                    <Search className="mr-2 h-4"/>
-                                                    <span>
-                                                        {location.name}
-                                                    </span>
-                                                    {
-                                                        location.state && (
-                                                            <span className="text-sm text-muted">
-                                                                ,{location.state}
-                                                            </span>
-                                                        )
-                                                    }
-                                                    <span className="text-sm text-muted-foreground">
-                                                        ,{location.country}
-                                                    </span>
-                                                </CommandItem>
-                                            ))
-                                        }
-                                    </CommandGroup>
-                                )
-                            }
-                        </CommandSeparator>
+                        {query.length > 2 && !isLoading && <CommandEmpty>No City Found.</CommandEmpty>}
+
+                        {/* Loading indicator */}
+                        {isLoading && (
+                            <div className="flex flex-center justify-center">
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                            </div>
+                        )}
+
+                        {/* City suggestions */}
+                        {locations && locations.length > 0 && (
+                            <CommandGroup heading="Suggestions">
+                                {locations.map((location) => (
+                                    <CommandItem
+                                        key={`${location.lat}-${location.lon}`}
+                                        value={`${location.lat}|${location.lon}|${location.name}|${location.country}`}
+                                        onClick={() => {
+                                            setOpen(false);
+                                            // navigate(`/city/${location.lat}|${location.lon}|${location.name}|${location.country}`)
+                                        }}
+                                    >
+                                        <Search className="mr-2 h-4" />
+                                        <span>{location.name}</span>
+                                        {location.state && (
+                                            <span className="text-sm text-muted">,{location.state}</span>
+                                        )}
+                                        <span className="text-sm text-muted-foreground">,{location.country}</span>
+                                    </CommandItem>
+                                ))}
+                            </CommandGroup>
+                        )}
                     </CommandList>
                 </Command>
             </CommandDialog>
