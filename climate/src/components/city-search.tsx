@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { CommandEmpty, CommandGroup, CommandList, CommandSeparator } from "cmdk"
 import { useLocationSearch } from "@/hooks/use-weather"
 import { format } from "date-fns"
+import useSearchHistory from "@/hooks/use-search-history"
 export const CitySearch = () => {
     const [open, setOpen] = useState(false)
     const [query, setQuery] = useState("")
@@ -15,13 +16,12 @@ export const CitySearch = () => {
 
     const handleSelect = (cityData: string) => {
         const [lat, lon, name, country] = cityData.split("|");
-
         addToHistory.mutate({
             query,
             name,
             lat: parseFloat(lat),
             lon: parseFloat(lon),
-            country
+            country,
         });
 
         setOpen(false);
@@ -79,7 +79,7 @@ export const CitySearch = () => {
                                                             <span className="text-sm text-muted-foreground">,{item.state}</span>
                                                         )}
                                                         <span className="text-sm text-muted-foreground">,{item.country}</span>
-                                                        <span className="text-sm text-muted-foreground">,{format(new Date(item.searchAt), "MMM d, h:mm a")}</span>
+                                                        <span className="text-sm text-muted-foreground">,{format(new Date(item.searchedAt), "MMM d, h:mm a")}</span>
 
                                                     </CommandItem>
                                                 ))
@@ -103,10 +103,7 @@ export const CitySearch = () => {
                                     <CommandItem
                                         key={`${location.lat}-${location.lon}`}
                                         value={`${location.lat}|${location.lon}|${location.name}|${location.country}`}
-                                        onClick={() => {
-                                            setOpen(false);
-                                            // navigate(`/city/${location.lat}|${location.lon}|${location.name}|${location.country}`)
-                                        }}
+                                        onSelect={handleSelect}
                                     >
                                         <Search className="mr-2 h-4" />
                                         <span>{location.name}</span>
