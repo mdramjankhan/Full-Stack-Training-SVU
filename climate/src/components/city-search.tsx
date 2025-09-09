@@ -1,4 +1,4 @@
-import { Clock, Loader2, Search, XCircle } from "lucide-react"
+import { Clock, Loader2, Search, Star, XCircle } from "lucide-react"
 import { Button } from "./ui/button"
 import { Command, CommandDialog, CommandInput, CommandItem } from "./ui/command"
 import { useState } from "react"
@@ -7,12 +7,15 @@ import { CommandEmpty, CommandGroup, CommandList, CommandSeparator } from "cmdk"
 import { useLocationSearch } from "@/hooks/use-weather"
 import { format } from "date-fns"
 import useSearchHistory from "@/hooks/use-search-history"
+import { useFavorite } from "@/hooks/use-favorite"
 export const CitySearch = () => {
     const [open, setOpen] = useState(false)
     const [query, setQuery] = useState("")
     const navigate = useNavigate();
     const { data: locations, isLoading } = useLocationSearch(query);
     const { history, clearHistory, addToHistory } = useSearchHistory();
+    const {favorites} = useFavorite();
+
 
     const handleSelect = (cityData: string) => {
         const [lat, lon, name, country] = cityData.split("|");
@@ -49,6 +52,30 @@ export const CitySearch = () => {
                     />
                     <CommandList>
                         {query.length > 2 && !isLoading && <CommandEmpty>No City Found.</CommandEmpty>}
+                        {
+                            favorites.length > 0 && (
+                                <CommandGroup heading="Favorites">
+                                    {favorites.map((city)=>(
+                                        <CommandItem key={city.id}
+                                            value={`${city.lat}|${city.lon}|${city.name}|${city.country}`}
+                                            onSelect={handleSelect}
+                                        >                                
+                                            <Star className="mr-2 h-4 w-4 text-yellow-500"/>
+                                            <span className="">{city.name}</span>
+                                            {city.state &&(
+                                                <span className="text-sm text-muted-foreground">
+                                                    ,{city.state}
+                                                </span>
+                                            )}
+                                            <span className="text-sm text-muted-foreground">
+                                                ,{city.country}
+                                            </span>
+                                            
+                                        </CommandItem>
+                                    ))}
+                                </CommandGroup>
+                            )
+                        }
 
                         {/* {history.length > 0 && <CommandGroup heading="History"> */}
                         {
