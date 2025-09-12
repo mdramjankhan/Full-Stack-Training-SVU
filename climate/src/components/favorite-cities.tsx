@@ -64,6 +64,9 @@ function FavoriteCityTablet({
                                 <p className="text-xs text-muted-foreground">{weather.sys.country}</p>
                             </div>
 
+
+                            
+
                         </div>
                         <div className="ml-auto text-right">
                             <p className="text-xs capitalize text-muted-foreground">
