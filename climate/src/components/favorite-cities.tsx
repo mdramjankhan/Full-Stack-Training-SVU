@@ -15,6 +15,7 @@ interface FavoriteCityTabletProps {
 
 }
 
+
 function FavoriteCityTablet({
     id,
     lat,
@@ -62,11 +63,7 @@ function FavoriteCityTablet({
                             <div>
                                 <p className="font-medium">{name}</p>
                                 <p className="text-xs text-muted-foreground">{weather.sys.country}</p>
-                            </div>
-
-
-                            
-
+                            </div>                
                         </div>
                         <div className="ml-auto text-right">
                             <p className="text-xs capitalize text-muted-foreground">
